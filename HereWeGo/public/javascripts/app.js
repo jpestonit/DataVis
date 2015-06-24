@@ -18,6 +18,7 @@ var ecpApp = angular.module('ecpApp', [
 ecpApp.config(['$routeProvider','$httpProvider',
   function($routeProvider,$httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
+
 	
     $routeProvider.
       when('/', {
