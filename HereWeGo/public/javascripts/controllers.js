@@ -7,13 +7,17 @@ var ecpControllers = angular.module('ecpControllers', []);
 
 
 
-ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
-  function($scope,$routeParams,$http,Trans){
+ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','Trans',
+  function($scope,$route,$routeParams,$http,Trans){
 	
 	//Variables
 	
 	$scope.trans = [];
+	$scope.treeData = [];
+
     var grid = null;
+   
+    
    
 	
   //  $scope.trans =Trans.query({start: $routeParams.start, end: $routeParams.end});
@@ -37,10 +41,23 @@ ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
     	 var yyyy= current.getFullYear();
     	 
     	 $scope.trans[x].TrxDate = mm+'/'+dd+'/'+yyyy;
+    	 
       
      }
 
         });
+
+    $http.get('trans/levels').
+    success(function(data){
+    	$scope.treeData = data;
+
+    	for(var obj in $scope.treeData){
+
+    	}
+    	console.log($scope.treeData);
+    });
+  
+
     
     
     /*
@@ -61,6 +78,14 @@ ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
     	maxDate: 'maxDate',
     	bindingOptions:{
     	value: 'currentValue'
+    	},
+    	onValueChanged: function(data){
+    	 var current = data.value;
+    	 var dd = current.getDate();
+    	 var mm = current.getMonth()+1;
+    	 var yyyy= current.getFullYear();
+    	 $routeParams.start =  mm+'-'+dd+'-'+yyyy;
+    		
     	}
     }
     
@@ -72,6 +97,14 @@ ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
         	maxDate: 'maxDate',
         	bindingOptions:{
         	value: 'currentValue2'
+        	},
+        	onValueChanged: function(data){
+        		var a = data.value;
+    	 		var dd = a.getDate();
+    	 		var mm = a.getMonth()+1;
+    	 		var yyyy= a.getFullYear();
+    	 		$routeParams.end =  mm+'-'+dd+'-'+yyyy;
+        		
         	}
         }
 
@@ -185,8 +218,11 @@ ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
 	 
 	 $scope.buttonOptions = {
 			 text: 'search',
-			 onClick: '#/trans/currentDate/currentDate2'
-	 }
+			 onClick: $scope.clickHandler
+			}
+
+	 
+
 	 
 	 
 	 
@@ -195,14 +231,25 @@ ecpControllers.controller('EcpCtrl', ['$scope','$routeParams','$http','Trans',
 	  * and the button is pushed
 	  */
 	 
-	 /*
+	 
 	 $scope.clickHandler = function (){
-		console.log('hey');
-		$routeParams.end = $scope.currentValue;
-		$routeParams.start = $scope.currentValue2;
-		
-		
-		}*/
+	 	$scope.$route.updateParams($routeParams);
+	 	}
+
+	 $scope.$on('$routeChangeSuccess', function() {
+
+      $scope.routeChangeSuccessCurrentParams = {};
+      $scope.$route = $route;
+      $scope.routeChangeSuccessCurrentParams.end = $scope.$route.current.params.end;
+      console.log('from routeChangeSuccess', $scope.routeChangeSuccessCurrentParams.end);
+    });
+
+
+	 
+	$scope.treeViewOpt = {
+	 	items: $scope.treeViewData
+	 }
+ 
 
 
   }]);
