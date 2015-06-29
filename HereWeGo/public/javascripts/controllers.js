@@ -14,7 +14,10 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
 	
 	$scope.trans = [];
 	$scope.treeData = [];
+<<<<<<< HEAD
 
+=======
+>>>>>>> a99f9d96330b7f3aa48a8bf4c14189689c5687bd
     var grid = null;
    
     
@@ -46,6 +49,7 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
      }
 
         });
+<<<<<<< HEAD
 
     $http.get('trans/levels').
     success(function(data){
@@ -56,6 +60,8 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
     	}
     	console.log($scope.treeData);
     });
+=======
+>>>>>>> a99f9d96330b7f3aa48a8bf4c14189689c5687bd
   
 
     
@@ -221,8 +227,11 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
 			 onClick: $scope.clickHandler
 			}
 
+<<<<<<< HEAD
 	 
 
+=======
+>>>>>>> a99f9d96330b7f3aa48a8bf4c14189689c5687bd
 	 
 	 
 	 
@@ -234,7 +243,16 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
 	 
 	 $scope.clickHandler = function (){
 	 	$scope.$route.updateParams($routeParams);
+<<<<<<< HEAD
 	 	}
+=======
+	 	
+		console.log($routeParams);
+		
+	    
+
+	}
+>>>>>>> a99f9d96330b7f3aa48a8bf4c14189689c5687bd
 
 	 $scope.$on('$routeChangeSuccess', function() {
 
@@ -245,10 +263,14 @@ ecpControllers.controller('EcpCtrl', ['$scope','$route','$routeParams','$http','
     });
 
 
+<<<<<<< HEAD
 	 
 	$scope.treeViewOpt = {
 	 	items: $scope.treeViewData
 	 }
+=======
+
+>>>>>>> a99f9d96330b7f3aa48a8bf4c14189689c5687bd
  
 
 
